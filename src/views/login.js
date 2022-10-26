@@ -27,7 +27,7 @@ class Login extends React.Component {
                                         <div className="bs-component">
                                             <fieldset>
 
-                                            <FormGroup label="Email:" htmlFor="exampleInputEmail1">
+                                            <FormGroup label="Email" htmlFor="exampleInputEmail1">
                                                 <input
                                                 type="email"
                                                 value={this.state.email}
