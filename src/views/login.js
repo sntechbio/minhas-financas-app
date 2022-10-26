@@ -27,7 +27,7 @@ class Login extends React.Component {
                                         <div className="bs-component">
                                             <fieldset>
 
-                                            <FormGroup label="Email: *" htmlFor="exampleInputEmail1">
+                                            <FormGroup label="Email:" htmlFor="exampleInputEmail1">
                                                 <input
                                                 type="email"
                                                 value={this.state.email}
@@ -38,6 +38,8 @@ class Login extends React.Component {
                                                 placeholder="Digite o Email"
                                                 />
                                             </FormGroup>
+
+                                            <br/>
 
                                             <FormGroup label="Senha" htmlFor="">
                                             <input
@@ -50,6 +52,8 @@ class Login extends React.Component {
                                                 placeholder="Password"
                                                 />
                                             </FormGroup>
+
+                                            <br/>
 
                                             <button onClick={this.entrar} className="btn btn-success">Entrar</button>
                                             <button className="btn btn-danger">Cadastrar</button>
