@@ -1,16 +1,14 @@
 import React from "react";
 
-import 'bootswatch/dist/flatly/bootstrap.css'
-import './custom.css'
-
-import Login from './views/login'
+import '../custom.css'
+import Rotas from "./rotas";
 
 class App extends React.Component {
 
   render() {
     return (
       <div>
-        <Login />
+        <Rotas/>
       </div>
     )
   }
