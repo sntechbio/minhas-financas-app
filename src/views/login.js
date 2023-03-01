@@ -3,9 +3,9 @@ import Card from "../components/card";
 import FormGroup from "../components/form-group";
 import 'bootswatch/dist/flatly/bootstrap.css'
 import { withRouter } from 'react-router-dom'
-import axios from 'axios'
 
 import UsuarioService from "../app/service/usuarioService";
+import localStorageService from "../app/service/localStorageService";
 
 class Login extends React.Component {
 
@@ -25,9 +25,10 @@ class Login extends React.Component {
             email: this.state.email,
             senha: this.state.senha
         }).then( response => {
-            localStorage.setItem('_usuario_logado', JSON.stringify(response.data))
+            localStorageService.addItem('_usuario_logado', JSON.stringify(response.data))
             this.props.history.push("/home")
         }).catch( erro => {
+            console.log(erro)
             this.setState({mensagemErro: erro.response.data})
         })
     }
