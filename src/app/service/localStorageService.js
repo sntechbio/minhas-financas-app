@@ -1,14 +1,14 @@
-class localStorage {
+class LocalStorageService {
 
-    static addItem(chave, valor) {
-        localStorage.addItem(chave, valor)
+    static adicionarItem(chave, valor) {
+        localStorage.addItem(chave, JSON.stringify(valor))
     }
 
-    static obterItem(chave){
+    static async obterItem(chave){
         const item = localStorage.getItem(chave)
         return JSON.parse(item);
     }
 
 }
 
-export default localStorage;
+export default LocalStorageService;
