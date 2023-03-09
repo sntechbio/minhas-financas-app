@@ -2,6 +2,8 @@ import React from "react";
 import Card from "../components/card";
 import FormGroup from "../components/form-group";
 import { withRouter } from 'react-router-dom';
+import UsuarioService from "../app/service/usuarioService";
+import { mensagemSucesso, mensagemErro } from "../components/toastr"
 
 class CadastroUsuario extends React.Component {
 
@@ -12,9 +14,46 @@ class CadastroUsuario extends React.Component {
         senhaRepeticao: ''
     }
 
+    constructor(){
+        super();
+        this.service = new UsuarioService();
+    }
     
     cadastrar = () => {
-        console.log(this.state)
+        const usuario = {
+            nome: this.state.nome,
+            email: this.state.email,
+            senha: this.state.senha,
+            senhaRepeticao: this.state.senhaRepeticao
+        }
+
+        if (this.state.senha != this.state.senhaRepeticao) {
+            mensagemErro("As senhas não correspondem")
+            return;
+        }
+
+        if (this.state.nome == ''){
+            mensagemErro("Nome não pode ser um campo vazio")
+            return
+        }
+
+        if (this.state.email == ''){
+            mensagemErro("O campo e-mail não pode ser vazio")
+            return
+        }
+
+        if (this.state.senha == ''){
+            mensagemErro("Senha não pode ser vazia")
+            return
+        }
+
+        this.service.salvar(usuario)
+            .then( response => {
+                mensagemSucesso("Usuário cadastrado com sucesso!")
+                this.history.push('/login')
+            }).catch(error => {
+                mensagemErro(error.response.data)
+            })
     }
 
     cancelar = () => {
