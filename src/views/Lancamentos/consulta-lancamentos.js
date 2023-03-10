@@ -5,6 +5,7 @@ import FormGroup from "../../components/form-group";
 import SelectMenu from "../../components/selectMenu";
 import LancamentosTable from "./lancamentos-table";
 import LancamentoService from "../../app/service/lancamentoService";
+import * as messages from '../../components/toastr'
 
 class ConsultaLancamentos extends React.Component{
 
@@ -12,6 +13,7 @@ class ConsultaLancamentos extends React.Component{
         ano: '',
         mes: '',
         tipo: '',
+        descricao: '',
         lancamentos: []
     }
 
@@ -21,11 +23,18 @@ class ConsultaLancamentos extends React.Component{
     }
 
     buscar = () => {
+
+        if(!this.state.ano){
+            messages.mensagemErro('O preenchimento do campo ano é obrigatório')
+            return false;
+        }
+
         const usuarioLogado = JSON.parse(localStorage.getItem("usuario_logado"))
         const lancamentoFiltro = {
             ano: this.state.ano,
             mes: this.state.mes,
             tipo: this.state.tipo,
+            descricao: this.state.descricao,
             usuario: usuarioLogado.id
         }
 
@@ -35,6 +44,14 @@ class ConsultaLancamentos extends React.Component{
             }).catch(error => {
                 console.log(error)
             })
+    }
+
+    editar = (id) => {
+        console.log(id)
+    }
+
+    deletar = (id) => {
+        console.log(id)
     }
     
     render(){
@@ -73,7 +90,7 @@ class ConsultaLancamentos extends React.Component{
                     <div className="col-md-6">
                         <div className="bs-component">
 
-                            <FormGroup htmlFor="inputAno" label="Ano: *">
+                            <FormGroup htmlFor="inputAno" label="Ano: ">
                                 <input 
                                     type="text" 
                                     className="form-control"
@@ -81,7 +98,7 @@ class ConsultaLancamentos extends React.Component{
                                     value={this.state.ano}
                                     onChange={e => this.setState({ano: e.target.value})}
                                     aria-describedby="emailHelp"
-                                    placeholder="Digite o Ano"/>
+                                    placeholder="Digite o Ano..."/>
                             </FormGroup>
 
                             <FormGroup htmlFor="inputMes" label="Mês: ">
@@ -90,6 +107,16 @@ class ConsultaLancamentos extends React.Component{
                                             onChange={e => this.setState({mes: e.target.value})}
                                             className="form-select"
                                             lista={meses}/>
+                            </FormGroup>
+
+                            <FormGroup htmlFor="inputDescricao" label="Descricao: ">
+                                <input 
+                                    type="text" 
+                                    className="form-control"
+                                    id="inputDescricao"
+                                    value={this.state.descricao}
+                                    onChange={e => this.setState({descricao: e.target.value})}
+                                    placeholder="Digite a descricao..."/>
                             </FormGroup>
 
                             <FormGroup htmlFor="inputTipo" label="Tipo: ">
@@ -108,7 +135,8 @@ class ConsultaLancamentos extends React.Component{
                 <br/>
                 <div className="row">
                     <div className="col-md-12">
-                        <LancamentosTable lancamentos={this.state.lancamentos}/>
+                        <LancamentosTable lancamentos={this.state.lancamentos}
+                                            deleteAction={this.deletar}/>
                     </div>
                 </div>
 

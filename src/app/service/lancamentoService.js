@@ -23,7 +23,11 @@ export default class LancamentoService extends ApiService {
 
         if(LancamentoFiltro.usuario){
             params = `${params}&usuario=${LancamentoFiltro.usuario}`
-        } 
+        }
+
+        if(LancamentoFiltro.descricao){
+            params = `${params}&descricao=${LancamentoFiltro.descricao}`
+        }
 
         return this.get(params)
     }
